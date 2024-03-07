@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Tax Calculator";
+}
+
+<h1>Tax Calculator</h1>
+
+<form method="post">
+    <div>
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" asp-for="Salary" />
+    </div>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Band Start</th>
+                <th>Band Finish</th>
+                <th>Tax Rate %</th>
+                <th>Tax Collected</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var band in Model.TaxRateBands)
+            {
+                <tr>
+                    <td>@band.BandStart</td>
+                    <td>@(band.BandFinish == 0 ? "and over" : band.BandFinish.ToString())</td>
+                    <td>@(band.TaxRatePercentage)%</td>
+                    <td>@band.TaxCollected</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <div>
+        <label>Total:</label>
+        <span>@Model.TotalTaxCollected</span>
+    </div>
+    <br />
+    <button type="submit">Calculate</button>
+</form>
